@@ -8,15 +8,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import Firebase
-
 class LoginActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        auth = Firebase.auth
 
         val registerText: TextView = findViewById(R.id.textView_register_now)
         registerText.setOnClickListener {
@@ -43,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         val usernameInput = username.text.toString()
         val passwordInput = password.text.toString()
 
-        auth.signInWithEmailAndPassword(usernameInput, passwordInput)
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(usernameInput, passwordInput)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val intent = Intent(this, MainActivity::class.java)
